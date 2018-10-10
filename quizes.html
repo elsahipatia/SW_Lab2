@@ -57,11 +57,14 @@
 					<td align="left">Tema (subject)*: <input id="subject" type="text"></td>
 				</tr>
                 <tr>
-                    <td align="left"><button id="examine" >Examinar...</button> No se ha seleccionado ningún archivo </td>
+                    <td align="left"><input type="file" id="examine" ></td>
                 </tr>
                 <tr>
                     <td align="left"><button id="send" type="submit">Enviar solicitud</button> </td>
                 </tr>
+				<tr>
+					<td><img id="image"/></td>
+				</tr>
 			</table>
 			<fieldset>
 
@@ -69,6 +72,21 @@
 		</form>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script>
+            function readURL(input) {
+                reader.readAsDataURL(input.files[0]);
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#image').attr('src', e.target.result);
+                    };
+
+                }
+            }
+
+            $("#examine").change(function() {
+                readURL(this);
+            });
             function validateForm() {
                 var emailReg = new RegExp(/^[a-z]+[0-9]{3}@ikasle\.ehu\.eus$/u);
                 var complexityReg = new RegExp(/^[0-5]$/u)
